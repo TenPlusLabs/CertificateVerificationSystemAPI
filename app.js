@@ -3,7 +3,7 @@ const path = require("path");
 const express = require("express");
 const dotenv = require("dotenv");
 const createError = require('http-errors');
-const cors = require('cors');
+// const cors = require('cors');
 
 const Certificate = require('./models/certificate');
 
@@ -20,7 +20,7 @@ const app = express();
 const publicDirPath = path.join(__dirname, "..", "public");
 
 
-app.use(cors({
+/*app.use(cors({
   origin: "*",
   methods: ['POST', 'GET', 'PATCH'],
   allowedHeaders: [
@@ -33,7 +33,7 @@ app.options("*", cors({
   allowedHeaders: [
     'Content-Type',
   ],
-}));
+}));*/
 
 app.use(function(req, res, next) {
   res.setHeader('Access-Control-Allow-Origin', '*');
