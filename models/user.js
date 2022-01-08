@@ -122,7 +122,7 @@ userSchema.statics.findByCredentials = async (email, password) => {
 userSchema.methods.genAuthToken = async function () {
   const user = this;
 
-  const token = jwt.sign({_id: user._id.toString()}, "whatever", {expiresIn: 84600});
+  const token = jwt.sign({_id: user._id.toString()}, "whatever", {expiresIn: 84600}); // TODO: Change Secret to ENV APP_SECRET_KEY
 
   user.tokens = user.tokens.concat({token});
   await user.save();

@@ -3,6 +3,7 @@ const path = require("path");
 const express = require("express");
 const dotenv = require("dotenv");
 const createError = require('http-errors');
+const cors = require('cors');
 
 const Certificate = require('./models/certificate');
 
@@ -18,13 +19,14 @@ const guestMiddleware = require("./middlewares/guest");
 const app = express();
 const publicDirPath = path.join(__dirname, "..", "public");
 
+app.use(cors());
 app.use(express.static(publicDirPath));
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 dotenv.config();
 
 app.use("/auth", guestMiddleware, authRoute);
-app.use("/users", authMiddleware, adminMiddleware, userRoute);
+app.use("/users", authMiddleware, userRoute);
 app.use("/admin", authMiddleware, adminMiddleware, adminRoute);
 app.use("/certificates", authMiddleware, adminMiddleware, certificateRoute);
 app.post("/verify-certificate", async (req, res) => {
