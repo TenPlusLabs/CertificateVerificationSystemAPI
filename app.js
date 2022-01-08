@@ -23,8 +23,18 @@ const publicDirPath = path.join(__dirname, "..", "public");
 app.use(cors({
   origin: "*",
   methods: ['POST', 'GET', 'PATCH'],
+  allowedHeaders: [
+    'Content-Type',
+  ],
 }));
-app.options("*", cors());
+app.options("*", cors({
+  origin: "*",
+  methods: ['POST', 'GET', 'PATCH'],
+  allowedHeaders: [
+    'Content-Type',
+  ],
+}));
+
 app.use(express.static(publicDirPath));
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
