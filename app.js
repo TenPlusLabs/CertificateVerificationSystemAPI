@@ -70,5 +70,16 @@ app.post("/verify-certificate", async (req, res) => {
   }
 
 });
+app.post("/logout", authMiddleware, async (req, res) => {
+  try {
+    req.user.tokens = req.user.tokens.filter((token) => token.token !== req.token);
+
+    await req.user.save();
+
+    res.send({status: 200});
+  } catch (e) {
+    res.status(500).send({e, status: 500});
+  }
+});
 
 module.exports = app;
