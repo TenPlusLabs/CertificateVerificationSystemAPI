@@ -7,9 +7,9 @@ router.get("/students", async (req, res) => {
   try {
     const students = await User.find({role: 'student'});
     // if (!users) throw new Error('No user found')
-    res.jsonp(students);
+    res.jsonp({students, status: 200});
   } catch (e) {
-    res.status(500).json(e);
+    res.status(500).json({e, status: 500});
   }
 
   /*User.find().then(result => {

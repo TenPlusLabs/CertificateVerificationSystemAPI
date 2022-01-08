@@ -1,5 +1,4 @@
 const router = require("express").Router();
-const verify = router;
 const createError = require('http-errors');
 
 const Certificate = require("../models/certificate");
@@ -22,18 +21,18 @@ router.post("", async (req, res) => {
   try {
     await certificate.save();
 
-    res.status(201).jsonp(certificate);
+    res.status(201).jsonp({certificate, status: 201});
   } catch (e) {
-    res.status(e.status || 400).jsonp(e);
+    res.status(e.status || 400).jsonp({e, status: e.status || 400});
   }
 });
 router.get("", async (req, res) => {
   try {
     const certificates = await Certificate.find();
 
-    res.jsonp(certificates);
+    res.jsonp({certificates, status: 200});
   } catch (e) {
-    res.status(e.status || 500).jsonp(e);
+    res.status(e.status || 500).jsonp({e, status: e.status || 500});
   }
 });
 
@@ -53,9 +52,9 @@ router.get("/:id", async (req, res) => {
       throw new Error(); // TODO: Change to an instance of http-errors
     }
 
-    res.jsonp(certificate);
+    res.jsonp({certificate, status: 200});
   } catch (e) {
-    res.status(e.status || 500).jsonp(e);
+    res.status(e.status || 500).jsonp({e, status: e.status || 500});
   }
 });
 router.patch("/:id", async (req, res) => {
@@ -84,9 +83,9 @@ router.patch("/:id", async (req, res) => {
 
     await certificate.save();
 
-    res.jsonp(certificate);
+    res.jsonp({certificate, status: 200});
   } catch (e) {
-    res.status(e.status || 500).jsonp(e);
+    res.status(e.status || 500).jsonp({e, status: e.status || 500});
   }
 });
 router.delete("/:id", async (req, res) => {
@@ -104,9 +103,9 @@ router.delete("/:id", async (req, res) => {
       throw new Error(); // TODO: Change to an instance of http-errors
     }
 
-    res.jsonp(certificate);
+    res.jsonp({certificate, status: 200});
   } catch (e) {
-    res.status(e.status || 500).jsonp(e);
+    res.status(e.status || 500).jsonp({e, status: e.status || 500});
   }
 });
 

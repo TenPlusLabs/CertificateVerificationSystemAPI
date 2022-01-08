@@ -10,9 +10,9 @@ router.post("", async (req, res) => {
 
   try {
     const newUser = await user.save();
-    res.status(201).json(newUser);
+    res.status(201).json({user: newUser, status: 201});
   } catch (e) {
-    res.status(400).json(e);
+    res.status(400).json({e, status: e.status || 400});
   }
 
   /*user.save().then(result => {
@@ -25,9 +25,9 @@ router.get("", async (req, res) => {
   try {
     const users = await User.find();
     // if (!users) throw new Error('No user found')
-    res.jsonp(users);
+    res.jsonp({users, status: 200});
   } catch (e) {
-    res.status(500).json(e);
+    res.status(500).json({e, status: e.status || 500});
   }
 
   /*User.find().then(result => {
@@ -173,9 +173,9 @@ router.post("/logout", async (req, res) => {
 
     await req.user.save();
 
-    res.send();
+    res.send({status: 200});
   } catch (e) {
-    res.status(500).send(e);
+    res.status(500).send({e, status: 500});
   }
 });
 router.post("/logoutAll", async (req, res) => {
