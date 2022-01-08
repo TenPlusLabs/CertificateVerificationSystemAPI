@@ -19,10 +19,12 @@ const guestMiddleware = require("./middlewares/guest");
 const app = express();
 const publicDirPath = path.join(__dirname, "..", "public");
 
-app.options("*", cors());
+
 app.use(cors({
   origin: "*",
+  methods: ['POST', 'GET', 'PATCH'],
 }));
+app.options("*", cors());
 app.use(express.static(publicDirPath));
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
