@@ -20,7 +20,9 @@ const app = express();
 const publicDirPath = path.join(__dirname, "..", "public");
 
 app.options("*", cors());
-app.use(cors());
+app.use(cors({
+  origin: "*",
+}));
 app.use(express.static(publicDirPath));
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
