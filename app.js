@@ -42,10 +42,10 @@ app.post("/verify-certificate", async (req, res) => {
 
     await certificate.populate('student');
 
-    res.json(certificate);
+    res.json({certificate, status: 200});
 
   } catch (e) {
-    res.status(e.status || 500).json(e);
+    res.status(e.status || 500).json({e, status: e.status || 500});
   }
 
 });
