@@ -48,7 +48,7 @@ app.use(express.urlencoded({extended: true}));
 dotenv.config();
 
 app.use("/auth", guestMiddleware, authRoute);
-app.use("/users", authMiddleware, userRoute);
+app.use("/users", authMiddleware, adminMiddleware, userRoute);
 app.use("/admin", authMiddleware, adminMiddleware, adminRoute);
 app.use("/certificates", authMiddleware, adminMiddleware, certificateRoute);
 app.post("/verify-certificate", async (req, res) => {
