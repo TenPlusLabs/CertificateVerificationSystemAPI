@@ -28,8 +28,7 @@ router.post("", async (req, res) => {
 });
 router.get("", async (req, res) => {
   try {
-    const certificates = await Certificate.find();
-
+    const certificates = await Certificate.find().populate('student');
     res.jsonp({certificates, status: 200});
   } catch (e) {
     res.status(e.status || 500).jsonp({e, status: e.status || 500});
