@@ -1,9 +1,9 @@
 const path = require("path");
 
 const express = require("express");
+const cors = require('cors');
 const dotenv = require("dotenv");
 const createError = require('http-errors');
-// const cors = require('cors');
 
 const Certificate = require('./models/certificate');
 
@@ -15,27 +15,15 @@ const adminRoute = require("./routes/admin");
 const app = express();
 const publicDirPath = path.join(__dirname, "..", "public");
 
-
-/*app.use(cors({
-  origin: "*",
-  methods: ['POST', 'GET', 'PATCH'],
-  allowedHeaders: [
-    'Content-Type',
-  ],
-}));
-app.options("*", cors({
-  origin: "*",
-  methods: ['POST', 'GET', 'PATCH'],
-  allowedHeaders: [
-    'Content-Type',
-  ],
-}));*/
+app.use(cors())
+app.options('*', cors())
 
 app.use(express.static(publicDirPath));
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 dotenv.config();
 
+/*
 app.use(function(req, res, next) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, PUT, PATCH, POST, DELETE, OPTIONS');
@@ -43,6 +31,7 @@ app.use(function(req, res, next) {
   res.setHeader('Access-Control-Allow-Credentials', true);
   next();
 });
+*/
 
 const authMiddleware = require("./middlewares/auth");
 const adminMiddleware = require("./middlewares/admin");
