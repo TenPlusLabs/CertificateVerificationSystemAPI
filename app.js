@@ -12,10 +12,6 @@ const certificateRoute = require("./routes/certificate");
 const userRoute = require("./routes/user");
 const adminRoute = require("./routes/admin");
 
-const authMiddleware = require("./middlewares/auth");
-const adminMiddleware = require("./middlewares/admin");
-const guestMiddleware = require("./middlewares/guest");
-
 const app = express();
 const publicDirPath = path.join(__dirname, "..", "public");
 
@@ -47,6 +43,10 @@ app.use(function(req, res, next) {
   res.setHeader('Access-Control-Allow-Credentials', true);
   next();
 });
+
+const authMiddleware = require("./middlewares/auth");
+const adminMiddleware = require("./middlewares/admin");
+const guestMiddleware = require("./middlewares/guest");
 
 app.use("/auth", guestMiddleware, authRoute);
 app.use("/users", authMiddleware, adminMiddleware, userRoute);
