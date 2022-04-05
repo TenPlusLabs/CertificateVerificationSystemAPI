@@ -11,6 +11,7 @@ const authRoute = require("./routes/auth");
 const certificateRoute = require("./routes/certificate");
 const userRoute = require("./routes/user");
 const adminRoute = require("./routes/admin");
+const courseRoute = require("./routes/course");
 
 const app = express();
 const publicDirPath = path.join(__dirname, "..", "public");
@@ -37,6 +38,7 @@ const authMiddleware = require("./middlewares/auth");
 const adminMiddleware = require("./middlewares/admin");
 const guestMiddleware = require("./middlewares/guest");
 
+app.use("/courses", courseRoute);
 app.use("/auth", guestMiddleware, authRoute);
 app.use("/users", authMiddleware, adminMiddleware, userRoute);
 app.use("/admin", authMiddleware, adminMiddleware, adminRoute);
